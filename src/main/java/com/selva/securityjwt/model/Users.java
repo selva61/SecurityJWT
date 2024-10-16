@@ -26,9 +26,8 @@ public class Users {
     @Column(name = "password", nullable = false)
     private String password;
 
-    @NotNull
     @ColumnDefault("CURRENT_TIMESTAMP")
-    @Column(name = "created_at", nullable = false)
+    @Column(name = "created_at")
     private Instant createdAt;
 
     @Column(name = "updated_at")
