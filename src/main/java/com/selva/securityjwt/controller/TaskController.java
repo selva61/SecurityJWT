@@ -1,5 +1,6 @@
 package com.selva.securityjwt.controller;
 
+import com.selva.securityjwt.DTO.TaskDTO;
 import com.selva.securityjwt.model.Task;
 import com.selva.securityjwt.service.TaskService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +18,7 @@ public class TaskController {
     private TaskService taskService;
 
     @GetMapping
-    public List<Task> getAllTasks() {
+    public List<TaskDTO> getAllTasks() {
         return taskService.getAllTasks();
     }
 

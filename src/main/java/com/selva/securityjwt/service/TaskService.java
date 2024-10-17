@@ -1,10 +1,13 @@
 package com.selva.securityjwt.service;
 
 
+import com.selva.securityjwt.DTO.TaskDTO;
+import com.selva.securityjwt.mapper.DTOMapper;
 import com.selva.securityjwt.model.Task;
 import com.selva.securityjwt.repository.TaskRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
@@ -15,8 +18,10 @@ public class TaskService {
     @Autowired
     private TaskRepository taskRepository;
 
-    public List<Task> getAllTasks() {
-        return taskRepository.findAll();
+    @Transactional(readOnly = true)
+    public List<TaskDTO> getAllTasks() {
+        List<Task> tasks = taskRepository.findAll();
+        return DTOMapper.toDTOs(tasks);
     }
 
     public Task getTaskById(int id) {
