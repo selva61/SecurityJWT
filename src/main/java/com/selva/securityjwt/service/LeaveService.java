@@ -7,6 +7,7 @@ import com.selva.securityjwt.repository.LeaveRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class LeaveService {
@@ -18,12 +19,14 @@ public class LeaveService {
         return DTOMapper.toLeaveDTOs(leaves);
     }
 
-    public Leave getLeave(Long id) {
-        return leaveRepository.findById(id).orElse(null);
+    public Optional<LeaveDTO> getLeave(Long id) {
+        Optional<Leave> result = leaveRepository.findById(id);
+        return result.map(DTOMapper::toDTO);
     }
 
-    public Leave saveLeave(Leave leave) {
-        return leaveRepository.save(leave);
+    public LeaveDTO saveLeave(Leave leave) {
+        Leave savedLeave = leaveRepository.save(leave);
+        return DTOMapper.toDTO(savedLeave);
     }
 
     public void deleteLeave(Long id) {

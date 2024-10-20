@@ -4,6 +4,7 @@ import com.selva.securityjwt.DTO.LeaveDTO;
 import com.selva.securityjwt.model.Leave;
 import com.selva.securityjwt.service.LeaveService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -20,17 +21,21 @@ public class LeaveController {
     }
 
     @GetMapping("/{id}")
-    public Leave getLeave(@PathVariable Long id) {
-        return leaveService.getLeave(id);
+    public ResponseEntity<LeaveDTO> getLeave(@PathVariable Long id) {
+        return leaveService.getLeave(id)
+                .map(ResponseEntity::ok)
+                .orElseGet(() -> ResponseEntity.notFound().build());
     }
 
     @PostMapping
-    public Leave createLeave(@RequestBody Leave leave) {
-        return leaveService.saveLeave(leave);
+    public ResponseEntity<LeaveDTO> createLeave(@RequestBody Leave leave) {
+        LeaveDTO savedLeave = leaveService.saveLeave(leave);
+        return ResponseEntity.ok(savedLeave);
     }
 
     @DeleteMapping("/{id}")
-    public void deleteLeave(@PathVariable Long id) {
+    public ResponseEntity<Void> deleteLeave(@PathVariable Long id) {
         leaveService.deleteLeave(id);
+        return ResponseEntity.ok().build();
     }
 }

@@ -1,11 +1,14 @@
 package com.selva.securityjwt.controller;
 
+import com.selva.securityjwt.DTO.RoleDTO;
 import com.selva.securityjwt.model.Role;
 import com.selva.securityjwt.service.RoleService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/roles")
@@ -14,18 +17,20 @@ public class RoleController {
     private RoleService roleService;
 
     @GetMapping
-    public List<Role> getAllRoles() {
+    public List<RoleDTO> getAllRoles() {
         return roleService.getAllRoles();
     }
 
     @GetMapping("/{id}")
-    public Role getRole(@PathVariable Long id) {
-        return roleService.getRole(id);
+    public ResponseEntity<RoleDTO> getRole(@PathVariable Long id) {
+        Optional<RoleDTO> role = roleService.getRole(id);
+        return role.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
     }
 
     @PostMapping
-    public Role createRole(@RequestBody Role role) {
-        return roleService.saveRole(role);
+    public ResponseEntity<RoleDTO> createRole(@RequestBody Role role) {
+        RoleDTO savedRole = roleService.saveRole(role);
+        return ResponseEntity.ok(savedRole);
     }
 
     @DeleteMapping("/{id}")
