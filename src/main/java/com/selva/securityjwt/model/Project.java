@@ -21,6 +21,7 @@ public class Project {
     @Column(name = "project_name", nullable = false, length = 200)
     private String projectName;
 
+
     @Column(name = "start_date")
     private LocalDate startDate;
 

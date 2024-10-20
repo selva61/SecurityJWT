@@ -3,37 +3,33 @@ package com.selva.securityjwt.DTO;
 import java.time.LocalDate;
 
 public class TaskDTO {
-    private Long id;
-    private String description;
-    private Long projectId;
+    private Integer id;
+    private Integer projectId;
     private LocalDate startDate;
     private LocalDate dueDate;
     private String taskDescription;
 
     public TaskDTO(Integer id, String taskDescription, Integer id1, LocalDate startDate, LocalDate dueDate) {
+        this.id = id;
+        this.taskDescription = taskDescription;
+        this.projectId = id1;
+        this.startDate = startDate;
+        this.dueDate = dueDate;
     }
 
-    public Long getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public Long getProjectId() {
+    public Integer getProjectId() {
         return projectId;
     }
 
-    public void setProjectId(Long projectId) {
+    public void setProjectId(Integer projectId) {
         this.projectId = projectId;
     }
 

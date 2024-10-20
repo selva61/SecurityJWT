@@ -1,6 +1,8 @@
 package com.selva.securityjwt.service;
 
+import com.selva.securityjwt.DTO.ProjectDTO;
 import com.selva.securityjwt.exception.ResourceNotFoundException;
+import com.selva.securityjwt.mapper.DTOMapper;
 import com.selva.securityjwt.model.Project;
 import com.selva.securityjwt.repository.ProjectRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,28 +16,33 @@ public class ProjectService {
     @Autowired
     private ProjectRepository projectRepository;
 
-    public List<Project> getAllProjects() {
-        return projectRepository.findAll();
+    public List<ProjectDTO> getAllProjects() {
+        List<Project> projects = projectRepository.findAll();
+        return DTOMapper.toProjectDTOs(projects);
     }
 
-    public Optional<Project> getProjectById(Long id) {
-        return projectRepository.findById(id);
+    public Optional<ProjectDTO> getProjectById(Long id) {
+        Optional<Project> project = projectRepository.findById(id);
+        return project.map(DTOMapper::toDTO);
     }
 
-    public Project addProject(Project project) {
-        return projectRepository.save(project);
+    public ProjectDTO addProject(Project project) {
+        Project savedProject = projectRepository.save(project);
+        return DTOMapper.toDTO(savedProject);
     }
 
-    public Project updateProject(Long id, Project projectDetails) {
+    public ProjectDTO updateProject(Long id, Project projectDetails) {
         Project project = projectRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Project not found for this id :: " + id));
 
         project.setProjectName(projectDetails.getProjectName());
         project.setStartDate(projectDetails.getStartDate());
         project.setEndDate(projectDetails.getEndDate());
+        project.setClient(projectDetails.getClient());
         project.setBudget(projectDetails.getBudget());
 
-        return projectRepository.save(project);
+        Project updatedProject = projectRepository.save(project);
+        return DTOMapper.toDTO(updatedProject);
     }
 
     public void deleteProject(Long id) {

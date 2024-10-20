@@ -2,7 +2,8 @@ package com.selva.securityjwt.model;
 
 import jakarta.persistence.*;
 
-import java.util.HashSet;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -142,30 +143,30 @@ public class Employee {
             joinColumns = @JoinColumn(name = "employee_id"),
             inverseJoinColumns = @JoinColumn(name = "role_id")
     )
-    private Set<Role> roles;
+    private List<Role> roles;
 
     @OneToMany(mappedBy = "employee")
-    private Set<Payroll> payrolls = new HashSet<>();
+    private List<Payroll> payrolls = new ArrayList<>();
 
     @OneToMany(mappedBy = "employee")
-    private Set<Leave> leaves = new HashSet<>();
+    private List<Leave> leaves = new ArrayList<>();
 
-   public Set<Role> getRoles() {
+   public List<Role> getRoles() {
         return roles;
     }
 
-    public Set<Payroll> getPayrolls() {
+    public List<Payroll> getPayrolls() {
         return payrolls;
     }
 
-    public Set<Leave> getLeaves() {
+    public List<Leave> getLeaves() {
         return leaves;
     }
 
     @OneToMany(mappedBy = "employee")
-    private Set<Timesheet> timesheets = new HashSet<>();
+    private List<Timesheet> timesheets = new ArrayList<>();
 
-    public Set<Timesheet> getTimesheets() {
+    public List<Timesheet> getTimesheets() {
         return timesheets;
     }
 

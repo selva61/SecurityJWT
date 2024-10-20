@@ -1,7 +1,8 @@
 package com.selva.securityjwt.model;
 
 import jakarta.persistence.*;
-import java.util.Set;
+
+import java.util.List;
 
 @Entity
 public class Role {
@@ -11,7 +12,7 @@ public class Role {
     private String name;
 
     @ManyToMany(mappedBy = "roles")
-    private Set<Employee> employees;
+    private List<Employee> employees;
 
     // Getters and Setters
     public Long getId() {
@@ -31,7 +32,7 @@ public class Role {
     }
 
 
-    public void setEmployees(Set<Employee> employees) {
+    public void setEmployees(List<Employee> employees) {
         this.employees = employees;
     }
 }

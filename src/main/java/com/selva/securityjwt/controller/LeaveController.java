@@ -1,5 +1,6 @@
 package com.selva.securityjwt.controller;
 
+import com.selva.securityjwt.DTO.LeaveDTO;
 import com.selva.securityjwt.model.Leave;
 import com.selva.securityjwt.service.LeaveService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,7 +15,7 @@ public class LeaveController {
     private LeaveService leaveService;
 
     @GetMapping
-    public List<Leave> getAllLeaves() {
+    public List<LeaveDTO> getAllLeaves() {
         return leaveService.getAllLeaves();
     }
 

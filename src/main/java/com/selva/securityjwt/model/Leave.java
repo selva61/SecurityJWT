@@ -11,6 +11,9 @@ public class Leave {
     private LocalDate startDate;
     private LocalDate endDate;
     private String type;
+    private int bal_annual_leave;
+    private int bal_sick_leave;
+    private int bal_child_care_leave;
 
     @ManyToOne
     @JoinColumn(name = "employee_id")
@@ -51,5 +54,29 @@ public class Leave {
 
     public void setEmployee(Employee employee) {
         this.employee = employee;
+    }
+
+    public int getBal_annual_leave() {
+        return bal_annual_leave;
+    }
+
+    public void setBal_annual_leave(int balance_annual_leave) {
+        this.bal_annual_leave = balance_annual_leave;
+    }
+
+    public int getBal_sick_leave() {
+        return bal_sick_leave;
+    }
+
+    public void setBal_sick_leave(int balance_sick_leave) {
+        this.bal_sick_leave = balance_sick_leave;
+    }
+
+    public int getBal_child_care_leave() {
+        return bal_child_care_leave;
+    }
+
+    public void setBal_child_care_leave(int balance_child_care_leave) {
+        this.bal_child_care_leave = balance_child_care_leave;
     }
 }
