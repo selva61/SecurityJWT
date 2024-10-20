@@ -62,4 +62,13 @@ public class DTOMapper {
     public static List<EmployeeDTO> toEmployeeDTOs(List<Employee> employees) {
         return employees.stream().map(DTOMapper::toDTO).collect(Collectors.toList());
     }
+
+    public static ClientDTO toDTO(Client client) {
+    return new ClientDTO(client.getId(), client.getClientName(), client.getContactEmail());
+    }
+
+    public static List<ClientDTO> toClientDTOs(List<Client> clients) {
+        return clients.stream().map(DTOMapper::toDTO).collect(Collectors.toList());
+    }
+
 }
